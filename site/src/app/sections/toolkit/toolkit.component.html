@@ -1,0 +1,9 @@
+<div *ngFor="let tool of tools">
+    <bubble 
+      [name]="tool.icon.name" 
+      [ext]="tool.icon.ext" 
+      [color]="tool.icon.color"
+      [size]="100 * tool.icon.size / 3"
+      [scale]="tool.icon.scale || 100"
+    ></bubble>
+</div>

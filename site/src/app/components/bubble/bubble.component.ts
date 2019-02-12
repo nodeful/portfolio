@@ -8,13 +8,34 @@ import { Component, OnInit, Input, HostBinding, ElementRef } from '@angular/core
 export class BubbleComponent implements OnInit {
   @Input() name = 'placeholder'
   @Input() ext = 'jpg'
-  @HostBinding('style.background-color') color = '#fff'
-  @HostBinding('style.width.px') size = 100
+  private _color = '#fff'
+  @Input()
+  set color (newColor) {
+    this._color = newColor
+    this.setStyle()
+  }
+  get color () { return this._color }
+
+  private _size = 100
+  @Input()
+  set size (newSize) {
+    this._size = newSize
+    this.setStyle()
+  }
+  get size () { return this._size }
+
+  @Input() scale = 100
 
   constructor(private elRef: ElementRef) { }
 
   ngOnInit() {
-    this.elRef.nativeElement.style.height = `${this.size}px`
+    this.setStyle()
   }
 
+  setStyle () {
+    const el = this.elRef.nativeElement
+    el.style['background-color'] = this.color
+    el.style.height = `${this.size}px`
+    el.style.width = `${this.size}px`
+  }
 }

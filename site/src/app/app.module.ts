@@ -6,13 +6,19 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { BubbleComponent } from './components/bubble/bubble.component';
 import { ProfileComponent } from './sections/profile/profile.component';
+import { ToolkitComponent } from './sections/toolkit/toolkit.component';
+import { HeaderComponent } from './sections/header/header.component';
+import { FooterComponent } from './sections/footer/footer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     BubbleComponent,
-    ProfileComponent
+    ProfileComponent,
+    ToolkitComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
