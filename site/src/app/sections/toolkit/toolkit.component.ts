@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 interface Tool {
   name: string
@@ -10,7 +10,11 @@ interface Icon {
   ext: string
   color: string
   size: 1 | 2 | 3 | 4 | 5
-  scale?: number
+  scale?: number,
+  position: {
+    x: number
+    y: number
+  }
 }
 @Component({
   selector: 'toolkit',
@@ -26,7 +30,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#333333',
       size: 5,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 226,
+        y: 18
+      }
     }
   }, {
     name: 'TypeScript',
@@ -35,7 +43,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#0079CF',
       size: 5,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 1240,
+        y: 56
+      }
     }
   }, {
     name: 'JavaScript',
@@ -44,7 +56,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'jpg',
       color: '#F0DD3E',
       size: 5,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 2527,
+        y: 203
+      }
     }
   }, {
     name: 'Docker',
@@ -53,7 +69,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'svg',
       color: '#44A1F0',
       size: 4,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 2298,
+        y: 32
+      }
     }
   }, {
     name: 'Kubernetes',
@@ -61,7 +81,11 @@ export class ToolkitComponent implements OnInit {
       name: 'kubernetes',
       ext: 'png',
       color: '#326DE6',
-      size: 4
+      size: 4,
+      position: {
+        x: 1917,
+        y: 246
+      }
     }
   }, {
     name: 'Angular',
@@ -69,7 +93,11 @@ export class ToolkitComponent implements OnInit {
       name: 'angular',
       ext: 'png',
       color: '#206BC1',
-      size: 4
+      size: 4,
+      position: {
+        x: 672,
+        y: 234
+      }
     }
   }, {
     name: 'Google Cloud',
@@ -78,7 +106,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#F6F6F6',
       size: 3,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 1709,
+        y: 156
+      }
     }
   }, {
     name: 'Ionic',
@@ -86,7 +118,11 @@ export class ToolkitComponent implements OnInit {
       name: 'ionic',
       ext: 'png',
       color: '#fff',
-      size: 3
+      size: 3,
+      position: {
+        x: 997,
+        y: 252
+      }
     }
   }, {
     name: 'Electron',
@@ -94,7 +130,11 @@ export class ToolkitComponent implements OnInit {
       name: 'electron',
       ext: 'png',
       color: '#fff',
-      size: 3
+      size: 3,
+      position: {
+        x: 1499,
+        y: 266
+      }
     }
   }, {
     name: 'mongoDB',
@@ -103,7 +143,10 @@ export class ToolkitComponent implements OnInit {
       ext: 'jpg',
       color: '#fff',
       size: 2,
-      scale: 100
+      position: {
+        x: 2517,
+        y: 81
+      }
     }
   }, {
     name: 'PostgreSQL',
@@ -112,7 +155,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#fff',
       size: 2,
-      scale: 75
+      scale: .75,
+      position: {
+        x: 143,
+        y: 277
+      }
     }
   }, {
     name: 'Redis',
@@ -121,7 +168,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#222222',
       size: 2,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 1230,
+        y: 282
+      }
     }
   }, {
     name: 'TimescaleDB',
@@ -129,7 +180,11 @@ export class ToolkitComponent implements OnInit {
       name: 'timescaledb',
       ext: 'jpg',
       color: '#fff',
-      size: 2
+      size: 2,
+      position: {
+        x: 1516,
+        y: 80
+      }
     }
   }, {
     name: 'Swift',
@@ -138,7 +193,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#fff',
       size: 3,
-      scale: 70
+      scale: .7,
+      position: {
+        x: 2004,
+        y: 61
+      }
     }
   }, {
     name: 'GitLab',
@@ -147,7 +206,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#fff',
       size: 3,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 780,
+        y: 48
+      }
     }
   }, {
     name: 'GitHub',
@@ -155,7 +218,11 @@ export class ToolkitComponent implements OnInit {
       name: 'github',
       ext: 'png',
       color: '#fff',
-      size: 3
+      size: 3,
+      position: {
+        x: 2294,
+        y: 280
+      }
     }
   }, {
     name: 'VSCode',
@@ -164,7 +231,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#fff',
       size: 3,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 389,
+        y: 224
+      }
     }
   }, {
     name: 'StandardJS',
@@ -172,7 +243,11 @@ export class ToolkitComponent implements OnInit {
       name: 'standard',
       ext: 'svg',
       color: '#F0DD3E',
-      size: 2
+      size: 2,
+      position: {
+        x: 1027,
+        y: 100
+      }
     }
   }, {
     name: 'DigitalOcean',
@@ -181,7 +256,11 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#fff',
       size: 3,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 522,
+        y: 48
+      }
     }
   }, {
     name: 'Cloudflare',
@@ -190,13 +269,44 @@ export class ToolkitComponent implements OnInit {
       ext: 'png',
       color: '#FFFFFF',
       size: 3,
-      scale: 80
+      scale: .8,
+      position: {
+        x: 35,
+        y: 80
+      }
     }
   }]
+  dragging = false
+  draggingEl = null
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  mousedown (event) {
+    this.dragging = true
+    this.draggingEl = event.path[2]
+  }
+
+  @HostListener('mouseup')
+  mouseup (event) {
+    this.dragging = false
+    this.draggingEl = null
+  }
+
+  mousemove (event) {
+    event.preventDefault()
+    if (this.dragging && this.draggingEl) {
+      const parent = this.draggingEl.parentElement
+      const parentCoords = parent.getBoundingClientRect()
+      const coords = this.draggingEl.getBoundingClientRect()
+
+      const y = coords.top - parentCoords.top
+      const x = coords.left - parentCoords.left
+
+      this.draggingEl.style.top = `${y + event.movementY}px`
+      this.draggingEl.style.left = `${x + event.movementX}px`
+    }
+  }
 }

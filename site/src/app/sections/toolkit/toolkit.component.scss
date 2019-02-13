@@ -1,0 +1,13 @@
+:host {
+  width: 100vw;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tool {
+  position: absolute;
+  display: inline-block;
+  top: 0px;
+  left: 0px;
+}

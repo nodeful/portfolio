@@ -1,9 +1,15 @@
-<div *ngFor="let tool of tools">
+<div *ngFor="let tool of tools" 
+class="tool" 
+[style.top.px]="tool.icon.position.y"
+[style.left.px]="tool.icon.position.x"
+(mousedown)="mousedown($event)" 
+(mouseup)="mouseup($event)" 
+(mousemove)="mousemove($event)">
     <bubble 
       [name]="tool.icon.name" 
       [ext]="tool.icon.ext" 
       [color]="tool.icon.color"
       [size]="100 * tool.icon.size / 3"
-      [scale]="tool.icon.scale || 100"
+      [scale]="tool.icon.scale || 1"
     ></bubble>
 </div>

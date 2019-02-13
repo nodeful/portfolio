@@ -24,7 +24,7 @@ export class BubbleComponent implements OnInit {
   }
   get size () { return this._size }
 
-  @Input() scale = 100
+  @Input() scale = 1
 
   constructor(private elRef: ElementRef) { }
 
