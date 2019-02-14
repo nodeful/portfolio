@@ -7,40 +7,53 @@
 .page {
   width: 100vw;
   position: relative;
-}
-.tool {
-  position: absolute;
-  display: inline-block;
-  top: 0px;
-  left: 0px;
-  // animation: shake 2s ease-in-out alternate infinite;
-}
-
-@mixin generateAnimation ($i) {
-  @keyframes shake-#{$i} {
-    0% {
-      transform: translate(random(10) + px, random(10) + px);
-    }
-
-    25% {
-      transform: translate(random(10) + px, random(10) + px);
-    }
     
-    50% {
-      transform: translate(random(10) + px, random(10) + px);
-    }
-
-    75% {
-      transform: translate(random(10) + px, random(10) + px);
+  .tool {
+    position: absolute;
+    display: inline-block;
+    top: 0px;
+    left: 0px;
+    .tooltip {
+      white-space: nowrap;
+      position: absolute;
+      bottom: -40px;
+      background-color: white;
+      padding: 5px 10px;
+      text-align: center;
+      border-radius: 25px;
+      box-shadow: 
+      0 15px 35px rgba(0,0,0,.1), 0 3px 10px rgba(0,0,0,.07),
+      0 0 1px 0px white inset, 0 0 1px 0px white;
     }
   }
 
-  animation: shake-#{$i} 10s ease-in-out alternate infinite;
-}
-
-@for $i from 1 to 20 {
-  .tool:nth-child(#{$i}) { 
-    @include generateAnimation($i);
+  @mixin generateAnimation ($i) {
+    @keyframes shake-#{$i} {
+      0% {
+        transform: translate(random(10) + px, random(10) + px);
+      }
+  
+      25% {
+        transform: translate(random(10) + px, random(10) + px);
+      }
+      
+      50% {
+        transform: translate(random(10) + px, random(10) + px);
+      }
+  
+      75% {
+        transform: translate(random(10) + px, random(10) + px);
+      }
+    }
+  
+    animation: shake-#{$i} 10s ease-in-out alternate infinite;
+  }
+  
+  @for $i from 1 to 20 {
+    .tool:nth-child(#{$i}) { 
+      @include generateAnimation($i);
+    }
   }
 }
+
 

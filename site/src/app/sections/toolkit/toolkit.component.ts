@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, OnDestroy } from '@angular/core'
 import { UtilitiesService } from '../../services/utilities.service'
+import { FadeFromTopAnimation } from '../../animations/fade-from-top'
 
 interface Tool {
   name: string
@@ -20,7 +21,8 @@ interface Icon {
 @Component({
   selector: 'toolkit',
   templateUrl: './toolkit.component.html',
-  styleUrls: ['./toolkit.component.scss']
+  styleUrls: ['./toolkit.component.scss'],
+  animations: [FadeFromTopAnimation]
 })
 
 export class ToolkitComponent implements OnInit, OnDestroy {
@@ -287,7 +289,6 @@ export class ToolkitComponent implements OnInit, OnDestroy {
     this.rescale()
   }
 
-  @HostListener('window:resize', ['$event'])
   rescale () {
     const furthestTool = this.tools.reduce(function (prev, current) {
       return (prev.icon.position.x > current.icon.position.x) ? prev : current

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, ElementRef } from '@angular/core'
 
 @Component({
   selector: 'bubble',
@@ -26,9 +26,9 @@ export class BubbleComponent implements OnInit {
 
   @Input() scale = 1
 
-  constructor(private elRef: ElementRef) { }
+  constructor (private elRef: ElementRef) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.setStyle()
   }
 
