@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, OnDestroy } from '@angular/core'
+import { UtilitiesService } from '../../services/utilities.service'
 
 interface Tool {
   name: string
@@ -22,7 +23,7 @@ interface Icon {
   styleUrls: ['./toolkit.component.scss']
 })
 
-export class ToolkitComponent implements OnInit {
+export class ToolkitComponent implements OnInit, OnDestroy {
   tools: Tool[] = [{
     name: 'Node.js',
     icon: {
@@ -33,7 +34,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 226,
-        y: 18
+        y: -2
       }
     }
   }, {
@@ -46,7 +47,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 1240,
-        y: 56
+        y: 36
       }
     }
   }, {
@@ -59,7 +60,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 2527,
-        y: 203
+        y: 183
       }
     }
   }, {
@@ -72,7 +73,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 2298,
-        y: 32
+        y: 12
       }
     }
   }, {
@@ -84,7 +85,7 @@ export class ToolkitComponent implements OnInit {
       size: 4,
       position: {
         x: 1917,
-        y: 246
+        y: 226
       }
     }
   }, {
@@ -96,7 +97,7 @@ export class ToolkitComponent implements OnInit {
       size: 4,
       position: {
         x: 672,
-        y: 234
+        y: 214
       }
     }
   }, {
@@ -109,7 +110,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 1709,
-        y: 156
+        y: 136
       }
     }
   }, {
@@ -121,7 +122,7 @@ export class ToolkitComponent implements OnInit {
       size: 3,
       position: {
         x: 997,
-        y: 252
+        y: 232
       }
     }
   }, {
@@ -133,7 +134,7 @@ export class ToolkitComponent implements OnInit {
       size: 3,
       position: {
         x: 1499,
-        y: 266
+        y: 246
       }
     }
   }, {
@@ -145,7 +146,7 @@ export class ToolkitComponent implements OnInit {
       size: 2,
       position: {
         x: 2517,
-        y: 81
+        y: 61
       }
     }
   }, {
@@ -158,7 +159,7 @@ export class ToolkitComponent implements OnInit {
       scale: .75,
       position: {
         x: 143,
-        y: 277
+        y: 257
       }
     }
   }, {
@@ -171,7 +172,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 1230,
-        y: 282
+        y: 262
       }
     }
   }, {
@@ -183,7 +184,7 @@ export class ToolkitComponent implements OnInit {
       size: 2,
       position: {
         x: 1516,
-        y: 80
+        y: 60
       }
     }
   }, {
@@ -196,7 +197,7 @@ export class ToolkitComponent implements OnInit {
       scale: .7,
       position: {
         x: 2004,
-        y: 61
+        y: 41
       }
     }
   }, {
@@ -209,7 +210,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 780,
-        y: 48
+        y: 28
       }
     }
   }, {
@@ -221,7 +222,7 @@ export class ToolkitComponent implements OnInit {
       size: 3,
       position: {
         x: 2294,
-        y: 280
+        y: 260
       }
     }
   }, {
@@ -234,7 +235,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 389,
-        y: 224
+        y: 204
       }
     }
   }, {
@@ -246,7 +247,7 @@ export class ToolkitComponent implements OnInit {
       size: 2,
       position: {
         x: 1027,
-        y: 100
+        y: 80
       }
     }
   }, {
@@ -259,7 +260,7 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 522,
-        y: 48
+        y: 28
       }
     }
   }, {
@@ -272,41 +273,84 @@ export class ToolkitComponent implements OnInit {
       scale: .8,
       position: {
         x: 35,
-        y: 80
+        y: 60
       }
     }
   }]
-  dragging = false
-  draggingEl = null
+  @ViewChild('pages') pagesRef
 
-  constructor() { }
+  iconPadding = 20
+  minPageWidth = 900
+  animationId = null
 
-  ngOnInit() {
+  constructor (private utils: UtilitiesService) {
+    this.rescale()
   }
 
-  mousedown (event) {
-    this.dragging = true
-    this.draggingEl = event.path[2]
-  }
+  @HostListener('window:resize', ['$event'])
+  rescale () {
+    const furthestTool = this.tools.reduce(function (prev, current) {
+      return (prev.icon.position.x > current.icon.position.x) ? prev : current
+    })
+    const originalWidth = furthestTool.icon.position.x + this.getToolIconSize(furthestTool)
+    const ratio = this.pageWidth / originalWidth
 
-  @HostListener('mouseup')
-  mouseup (event) {
-    this.dragging = false
-    this.draggingEl = null
-  }
-
-  mousemove (event) {
-    event.preventDefault()
-    if (this.dragging && this.draggingEl) {
-      const parent = this.draggingEl.parentElement
-      const parentCoords = parent.getBoundingClientRect()
-      const coords = this.draggingEl.getBoundingClientRect()
-
-      const y = coords.top - parentCoords.top
-      const x = coords.left - parentCoords.left
-
-      this.draggingEl.style.top = `${y + event.movementY}px`
-      this.draggingEl.style.left = `${x + event.movementX}px`
+    for (const tool of this.tools) {
+      tool.icon.position.x *= ratio
+      tool.icon.position.y *= ratio
+      tool.icon.size *= ratio
     }
+  }
+
+  async ngOnInit () {
+    await this.setup()
+    this.update()
+  }
+
+  async setup () {
+    let i = -1
+    while (this.pages.length !== 2) {
+      await this.utils.delay(10)
+    }
+    for (const page of this.pages) {
+      i++
+      page.style.transform = `translate(${i * this.pageWidth}px, 0px)`
+    }
+  }
+
+  update () {
+    const SCROLL_SPEED = .3 // Pixels to move per frame. At 60fps, this would be 18px a sec.
+    for (const page of this.pages) {
+      let { x } = page.getBoundingClientRect()
+      x -= SCROLL_SPEED
+      if (x < -this.pageWidth) {
+        x = this.pageWidth
+      }
+      page.style.transform = `translate(${x}px, 0px)`
+    // Queue up another update() method call on the next frame
+    }
+    this.animationId = requestAnimationFrame(this.update.bind(this))
+  }
+
+  getToolIconSize (tool: Tool) {
+    return 100 * tool.icon.size / 3
+  }
+
+  get pageWidth () {
+    let width = window.innerWidth
+    if (width < this.minPageWidth) {
+      width = this.minPageWidth
+    }
+    return width
+  }
+
+  get pages () {
+    const pagesEl = this.pagesRef.nativeElement
+    const pagesElements = pagesEl.children
+    return pagesElements
+  }
+
+  ngOnDestroy () {
+    if (this.animationId) cancelAnimationFrame(this.animationId)
   }
 }

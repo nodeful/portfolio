@@ -1,15 +1,23 @@
-<div *ngFor="let tool of tools" 
-class="tool" 
-[style.top.px]="tool.icon.position.y"
-[style.left.px]="tool.icon.position.x"
-(mousedown)="mousedown($event)" 
-(mouseup)="mouseup($event)" 
-(mousemove)="mousemove($event)">
-    <bubble 
-      [name]="tool.icon.name" 
-      [ext]="tool.icon.ext" 
-      [color]="tool.icon.color"
-      [size]="100 * tool.icon.size / 3"
-      [scale]="tool.icon.scale || 1"
-    ></bubble>
+<div
+#pages
+>
+  <div 
+  class="page" 
+  *ngFor="let page of ' '.repeat(2).split(''), let pageIndex = index"
+  >
+    <div *ngFor="let tool of tools" 
+    class="tool" 
+    [style.top.px]="tool.icon.position.y"
+    [style.left.px]="tool.icon.position.x"
+    >
+      <bubble 
+        [name]="tool.icon.name" 
+        [ext]="tool.icon.ext" 
+        [color]="tool.icon.color"
+        [size]="getToolIconSize(tool)"
+        [scale]="tool.icon.scale || 1"
+      ></bubble>
+    </div>
+  </div>
 </div>
+

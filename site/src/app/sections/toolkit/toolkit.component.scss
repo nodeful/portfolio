@@ -1,13 +1,46 @@
 :host {
   width: 100vw;
   height: 400px;
-  overflow: hidden;
-  position: relative;
+  // overflow: hidden;
 }
 
+.page {
+  width: 100vw;
+  position: relative;
+}
 .tool {
   position: absolute;
   display: inline-block;
   top: 0px;
   left: 0px;
+  // animation: shake 2s ease-in-out alternate infinite;
 }
+
+@mixin generateAnimation ($i) {
+  @keyframes shake-#{$i} {
+    0% {
+      transform: translate(random(10) + px, random(10) + px);
+    }
+
+    25% {
+      transform: translate(random(10) + px, random(10) + px);
+    }
+    
+    50% {
+      transform: translate(random(10) + px, random(10) + px);
+    }
+
+    75% {
+      transform: translate(random(10) + px, random(10) + px);
+    }
+  }
+
+  animation: shake-#{$i} 10s ease-in-out alternate infinite;
+}
+
+@for $i from 1 to 20 {
+  .tool:nth-child(#{$i}) { 
+    @include generateAnimation($i);
+  }
+}
+
