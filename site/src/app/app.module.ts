@@ -9,6 +9,11 @@ import { ProfileComponent } from './sections/profile/profile.component'
 import { ToolkitComponent } from './sections/toolkit/toolkit.component'
 import { HeaderComponent } from './sections/header/header.component'
 import { FooterComponent } from './sections/footer/footer.component'
+import { PropagationAnimationComponent } from './sections/propagation-animation/propagation-animation.component'
+import { CraftsComponent } from './sections/crafts/crafts.component'
+import { GaugeComponent } from './components/gauge/gauge.component'
+import { NgxGaugeModule } from 'ngx-gauge'
+import { SafePipe } from './pipes/safe.pipe'
 
 @NgModule({
   declarations: [
@@ -17,12 +22,17 @@ import { FooterComponent } from './sections/footer/footer.component'
     ProfileComponent,
     ToolkitComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PropagationAnimationComponent,
+    CraftsComponent,
+    GaugeComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
     FlexLayoutModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxGaugeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

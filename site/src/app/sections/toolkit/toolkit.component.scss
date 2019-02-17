@@ -1,7 +1,9 @@
 :host {
   width: 100vw;
-  height: 400px;
+  height: 17vw;
+  min-height: 260px;
   // overflow: hidden;
+  text-align: center;
 }
 
 .page {
@@ -14,9 +16,10 @@
     top: 0px;
     left: 0px;
     .tooltip {
+      pointer-events: none;
       white-space: nowrap;
       position: absolute;
-      bottom: -40px;
+      bottom: -30px;
       background-color: white;
       padding: 5px 10px;
       text-align: center;
@@ -27,26 +30,32 @@
     }
   }
 
+  @function randomNum($min, $max) {
+    $rand: random();
+    $randomNum: $min + floor($rand * (($max - $min) + 1));
+  
+    @return $randomNum;
+  }
   @mixin generateAnimation ($i) {
     @keyframes shake-#{$i} {
       0% {
-        transform: translate(random(10) + px, random(10) + px);
+        transform: translate(randomNum(5, 15) + px, randomNum(5, 15) + px);
       }
   
       25% {
-        transform: translate(random(10) + px, random(10) + px);
+        transform: translate(randomNum(5, 15) + px, randomNum(5, 15) + px);
       }
       
       50% {
-        transform: translate(random(10) + px, random(10) + px);
+        transform: translate(randomNum(5, 15) + px, randomNum(5, 15) + px);
       }
   
       75% {
-        transform: translate(random(10) + px, random(10) + px);
+        transform: translate(randomNum(5, 15) + px, randomNum(5, 15) + px);
       }
     }
-  
-    animation: shake-#{$i} 10s ease-in-out alternate infinite;
+    animation-delay: randomNum(100, 1000) + ms;
+    animation: shake-#{$i} randomNum(10, 20) + s ease alternate infinite;
   }
   
   @for $i from 1 to 20 {

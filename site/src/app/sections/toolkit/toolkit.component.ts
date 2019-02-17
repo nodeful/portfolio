@@ -98,7 +98,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       color: '#206BC1',
       size: 4,
       position: {
-        x: 672,
+        x: 552,
         y: 214
       }
     }
@@ -198,7 +198,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       size: 3,
       scale: .7,
       position: {
-        x: 2004,
+        x: 1900,
         y: 41
       }
     }
@@ -276,6 +276,32 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       position: {
         x: 35,
         y: 60
+      }
+    }
+  }, {
+    name: 'gRPC',
+    icon: {
+      name: 'grpc',
+      ext: 'png',
+      color: '#FFFFFF',
+      size: 2,
+      scale: 1,
+      position: {
+        x: 800,
+        y: 230
+      }
+    }
+  }, {
+    name: 'Protocol Buffers',
+    icon: {
+      name: 'protobuf',
+      ext: 'png',
+      color: '#FFFFFF',
+      size: 2,
+      scale: .8,
+      position: {
+        x: 2200,
+        y: 160
       }
     }
   }]

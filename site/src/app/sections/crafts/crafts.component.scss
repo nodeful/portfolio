@@ -1,0 +1,13 @@
+:host {
+  text-align: center;
+  width: 100vw;
+}
+
+.craft {
+  position: relative;
+
+  .inside-text {
+    position: absolute;
+    top: 50%;
+  }
+}

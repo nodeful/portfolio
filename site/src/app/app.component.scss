@@ -2,8 +2,13 @@
 ::ng-deep body, html {
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 500;
+  font-size: 62.5%;
 }
 
 .container {
   min-height: 100vh;
+}
+
+::ng-deep a {
+  text-decoration: none;
 }
