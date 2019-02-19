@@ -1,22 +1,39 @@
 <h1>Craft Mastery:</h1>
-<div fxLayout="row" fxLayoutAlign="space-around center" *ngIf="filtersPregenerated">
-  <div *ngFor="let craft of crafts" class="craft" fxLayout="column" fxLayoutAlign="start center">
-    <h2>{{craft.name}}</h2>
-    <ngx-gauge
-      #gauge
-      type="arch"
-      [min]="0"
-      [max]="1"
-      [value]="craft.value"
-      cap="round"
-      [thick]="10"
-      [animate]="false"
-      foregroundColor="#000"
-      [style.filter]="craft.filter | safe"
-    >
-    <ngx-gauge-value class="gauge-value">
-    </ngx-gauge-value>
-  </ngx-gauge>
-  <h2 class="inside-text">{{getBracket(craft.mastery)}}</h2>
+<div 
+fxLayout="row wrap" 
+fxLayoutAlign="space-around center" 
+fxFlex="60"
+fxLayoutGap="2vw"
+>
+  <div 
+  *ngFor="let craft of crafts" 
+  class="craft" 
+  fxLayout="column" 
+  fxLayoutAlign="start center" 
+  fxLayoutGap="16px"
+  [style.transform]="'scale(' + scale + ')'"
+  >
+    <span class="name">{{craft.name}}</span>
+    <div 
+    class="gauge" 
+    fxLayout="column" 
+    fxLayoutAlign="start center" >
+      <ngx-gauge
+        #gauge
+        type="arch"
+        [min]="0"
+        [max]="1"
+        [value]="craft.value"
+        cap="round"
+        [thick]="8"
+        [size]="150"
+        [animate]="false"
+        [foregroundColor]="craft.color"
+      >
+        <ngx-gauge-value class="gauge-value">
+        </ngx-gauge-value>
+      </ngx-gauge>
+      <span class="bracket">{{getBracket(craft.mastery)}}</span>
+    </div>
   </div>
 </div>

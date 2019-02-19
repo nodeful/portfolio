@@ -1,13 +1,32 @@
 :host {
   text-align: center;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .craft {
   position: relative;
-
-  .inside-text {
+  padding-top: 50px;
+  text-align: center;
+  .name {
     position: absolute;
-    top: 50%;
+    font-size: 1rem;
+    width: 100%;
+    bottom: 109px;
   }
+
+  .gauge {
+    position: relative;
+    top: 33px;
+    .bracket {
+      font-size: 1rem;
+      position: absolute;
+      top: 43%;
+    }
+  }
+
+  
 }

@@ -25,7 +25,7 @@ export class CraftsComponent implements OnInit, OnDestroy {
       mastery: 0.1
     },
     {
-      name: 'Front-end (Mobile & Web)',
+      name: 'Front-end',
       mastery: 0.4
     },
     {
@@ -38,11 +38,11 @@ export class CraftsComponent implements OnInit, OnDestroy {
     },
     {
       name: 'DevOps',
-      mastery: 0.6
+      mastery: 0.8
     },
     {
       name: 'Databases',
-      mastery: 0.5
+      mastery: 0.6
     },
     {
       name: 'Project Management',
@@ -50,13 +50,17 @@ export class CraftsComponent implements OnInit, OnDestroy {
     },
     {
       name: 'System Architecture',
-      mastery: 0.7
+      mastery: 0.9
     },
     {
       name: 'Security',
       mastery: .6
     }
-  ].map(c => ({ ...c, filter: 'none', value: 0 }))
+  ].map(c => ({
+    ...c,
+    value: 0,
+    color: '#000'
+  }))
 
   colors = {
     red: '#ed0022',
@@ -66,7 +70,7 @@ export class CraftsComponent implements OnInit, OnDestroy {
     green: '#009a60'
   }
 
-  filters: string[] = []
+  colorSteps: string[] = []
 
   bracketConfigs: BracketConfig[] = [{
     bracket: 'Novice',
@@ -100,9 +104,12 @@ export class CraftsComponent implements OnInit, OnDestroy {
     endMastery: 1
   }]
 
-  filtersPregenerated = false
-  updateInterval: NodeJS.Timer
+  updateInterval: any
   @ViewChildren('gauge') gauges: QueryList<any>
+
+  get scale () {
+    return 1
+  }
 
   constructor (private utils: UtilitiesService, private cdr: ChangeDetectorRef) {}
 
@@ -112,7 +119,7 @@ export class CraftsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit () {
-    this.pregenerateFilters()
+    this.pregenerateColors()
     this.update()
     this.updateInterval = setInterval(this.update.bind(this), 1000)
   }
@@ -121,7 +128,7 @@ export class CraftsComponent implements OnInit, OnDestroy {
     if (this.updateInterval) clearInterval(this.updateInterval)
   }
 
-  pregenerateFilters () {
+  pregenerateColors () {
     let value = 0
     let index = 0
     const startedAt = new Date().getTime()
@@ -130,22 +137,17 @@ export class CraftsComponent implements OnInit, OnDestroy {
       const startRGB = this.utils.hexColorToRGB(config.startColor)
       const endRGB = this.utils.hexColorToRGB(config.endColor)
       const bracketProgress = this.utils.mapValue(value, config.startMastery, config.endMastery, 0, 1)
-      const { r, g ,b } = {
+      const RGB = {
         r: Math.round(this.utils.mapValue(bracketProgress, 0, 1, startRGB.r, endRGB.r)),
         g: Math.round(this.utils.mapValue(bracketProgress, 0, 1, startRGB.g, endRGB.g)),
         b: Math.round(this.utils.mapValue(bracketProgress, 0, 1, startRGB.b, endRGB.b))
       }
 
-      const color = new Color(r, g, b)
-      const solver = new ColorSolver(color)
-      const result = solver.solve()
-      this.filters[index] = result.filter.replace('filter: ', '').replace(';', '')
+      this.colorSteps[index] = this.utils.rgbToHexColor(RGB)
 
       value += .01
       index++
     }
-    console.log(`Took ${(new Date().getTime() - startedAt) / 1000} seconds to pregenerate filters`)
-    this.filtersPregenerated = true
   }
 
   getBracket (mastery: number): Bracket {
@@ -159,18 +161,17 @@ export class CraftsComponent implements OnInit, OnDestroy {
   update () {
     if (!this.gauges) return
     let index = -1
-    // console.log(this.gauges)
     for (const craft of this.crafts) {
       index++
       const el = this.gauges.toArray()[index]._elementRef.nativeElement
       const wH = window.innerHeight
       const { y, height } = el.getBoundingClientRect()
-      let progress = this.utils.mapValue(y, wH, wH - height , 0, 1)
+      let progress = this.utils.mapValue(y, wH - height, wH - height * 2 , 0, 1)
       if (progress > 1) progress = 1
       const craftProgress = craft.mastery * progress
-      let filterIndex = Math.round(craftProgress * 100)
-      if (filterIndex > this.filters.length - 1) filterIndex = this.filters.length - 1
-      craft.filter = this.filters[filterIndex]
+      let colorIndex = Math.round(craftProgress * 100)
+      if (colorIndex > this.colorSteps.length - 1) colorIndex = this.colorSteps.length - 1
+      craft.color = this.colorSteps[colorIndex]
       craft.value = craftProgress
     }
 

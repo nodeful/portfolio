@@ -1,5 +1,8 @@
+@import '../../styles/colors.scss';
+
 :host {
   line-height: 2.5rem;
+  text-align: center;
 }
 
 h1 {
@@ -9,3 +12,31 @@ h1 {
 span {
   font-size: 2em;
 }
+
+.characteristic {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .emoji {
+    font-size: 2rem;
+    margin-right: 10px;
+  }
+}
+
+.meta {
+  line-height: 1.5rem;
+  font-size: 0.4rem;
+  color: $dark-grey;
+  .location {
+    .icon {
+      width: 15px;
+      height: 15px;
+      fill: $dark-grey;
+    }
+  }
+}
+
+
+
+

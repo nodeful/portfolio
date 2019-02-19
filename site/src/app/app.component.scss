@@ -1,14 +1,25 @@
+@import './styles/colors.scss';
 
 ::ng-deep body, html {
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 500;
   font-size: 62.5%;
+  width: 100vw;
+  max-width: 100vw;
 }
 
+::ng-deep h1,h2,h3,h4,h5,p,span {
+  text-align: center;
+}
 .container {
   min-height: 100vh;
 }
 
 ::ng-deep a {
   text-decoration: none;
+  color: $dark-grey;
+
+  &:hover {
+    color: black;
+  }
 }
