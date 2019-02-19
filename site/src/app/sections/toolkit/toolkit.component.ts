@@ -308,9 +308,10 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   @ViewChild('pages') pagesRef
 
   iconPadding = 20
-  minPageWidth = 900
   animationId = null
-
+  dragging = false
+  lastDragPosition: number = null
+  pageWidth: number = 0
   constructor (private utils: UtilitiesService) {
     this.rescale()
   }
@@ -320,8 +321,11 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       return (prev.icon.position.x > current.icon.position.x) ? prev : current
     })
     const originalWidth = furthestTool.icon.position.x + this.getToolIconSize(furthestTool)
-    const ratio = this.pageWidth / originalWidth
-
+    let ratio = window.innerWidth / originalWidth
+    console.log(window.innerWidth, originalWidth, ratio)
+    if (ratio < .5) ratio = .5
+    this.pageWidth = originalWidth * ratio
+    console.log(this.pageWidth, ratio)
     for (const tool of this.tools) {
       tool.icon.position.x *= ratio
       tool.icon.position.y *= ratio
@@ -346,6 +350,10 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   }
 
   update () {
+    if (this.dragging) {
+      this.animationId = requestAnimationFrame(this.update.bind(this))
+      return
+    }
     const SCROLL_SPEED = .3 // Pixels to move per frame. At 60fps, this would be 18px a sec.
     for (const page of this.pages) {
       let { x } = page.getBoundingClientRect()
@@ -363,18 +371,44 @@ export class ToolkitComponent implements OnInit, OnDestroy {
     return 100 * tool.icon.size / 3
   }
 
-  get pageWidth () {
-    let width = window.innerWidth
-    if (width < this.minPageWidth) {
-      width = this.minPageWidth
-    }
-    return width
-  }
-
   get pages () {
     const pagesEl = this.pagesRef.nativeElement
     const pagesElements = pagesEl.children
     return pagesElements
+  }
+
+  dragstart (event: TouchEvent) {
+    this.dragging = true
+    const x = event.changedTouches[0].clientX
+    this.lastDragPosition = x
+  }
+
+  drag (event: TouchEvent) {
+    if (!this.dragging) return
+    const x = event.changedTouches[0].clientX
+    if (!this.lastDragPosition) {
+      this.lastDragPosition = x
+      return
+    }
+
+    const change = x - this.lastDragPosition
+    for (const page of this.pages) {
+      let { x: pageX } = page.getBoundingClientRect()
+      pageX += change
+      if (pageX < -this.pageWidth) {
+        pageX = this.pageWidth
+      }
+      if (pageX >= this.pageWidth) {
+        pageX = -this.pageWidth
+      }
+      page.style.transform = `translate(${pageX}px, 0px)`
+    // Queue up another update() method call on the next frame
+    }
+    this.lastDragPosition = x
+  }
+
+  dragend () {
+    this.dragging = false
   }
 
   ngOnDestroy () {

@@ -1,14 +1,17 @@
 :host {
   width: 100vw;
-  height: 19vw;
-  min-height: 200px;
+  height: 21vw;
+  min-height: 290px;
   // overflow: hidden;
   text-align: center;
   overflow: hidden;
 }
 
+.pages {
+  height: 100%;
+}
+
 .page {
-  width: 100vw;
   position: relative;
     
   .tool {

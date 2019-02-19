@@ -1,9 +1,14 @@
 <h1>Favourite Engineering Tools:</h1>
 <div
+class="pages"
 #pages
+(touchstart)="dragstart($event)"
+(touchmove)="drag($event)"
+(touchend)="dragend()"
 >
   <div 
-  class="page" 
+  class="page"
+  [style.width.px]="pageWidth" 
   *ngFor="let page of ' '.repeat(2).split(''), let pageIndex = index"
   >
     <div *ngFor="let tool of tools"

@@ -5,12 +5,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 1000px;
 }
 
 .craft {
   position: relative;
   padding-top: 50px;
   text-align: center;
+  width: 150px;
+  margin-right: 11px;
   .name {
     position: absolute;
     font-size: 1rem;

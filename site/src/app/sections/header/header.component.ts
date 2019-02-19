@@ -8,18 +8,23 @@ import { Component, OnInit } from '@angular/core'
 export class HeaderComponent {
   links = [{
     name: 'LinkedIn',
-    icon: 'linkedin.svg'
+    icon: 'linkedin.svg',
+    action: () => this.openUrl('https://linkedin.com/in/romankisil')
   }, {
     name: 'GitHub',
-    icon: 'github.png'
+    icon: 'github.png',
+    action: () => this.openUrl('https://github.com/nodeful')
   }, {
-    name: 'YouTube',
-    icon: 'youtube.png'
-  }, {
-    name: 'LinkedIn',
-    icon: 'linkedin.svg'
-  }, {
-    name: 'LinkedIn',
-    icon: 'linkedin.svg'
+    name: 'CV',
+    icon: 'download.svg',
+    download: 'assets/cv.pdf'
   }]
+
+  openUrl (url: string) {
+    window.open(url, '_blank')
+  }
+
+  downloadFile (url: string) {
+    window.document.getElementById('download_iframe')['src'] = url
+  }
 }

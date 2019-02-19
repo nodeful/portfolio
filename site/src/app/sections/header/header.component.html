@@ -1,12 +1,13 @@
 <div fxLayout="row" fxLayoutAlign="end center">
-  <a>
-    <img src="assets/linkedin.svg">
-    LinkedIn
+  <a 
+  class="link" 
+  *ngFor="let link of links" 
+  [href]="link.download ? link.download : ''"
+  target="_blank"
+  (click)="link.action ? link.action() : undefined" 
+  >
+      <img class="icon" [src]="'assets/' + link.icon">
+      <span>{{link.name}}</span>
   </a>
-  <a>
-    <img src="assets/github.png">
-    GitHub
-  </a>
-  <a>YouTube</a>
-  <a>CV</a>
 </div>
+<iframe id="download_iframe" style="display:none;"></iframe>
