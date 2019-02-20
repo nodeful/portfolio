@@ -29,7 +29,7 @@ export class CraftsComponent implements OnInit, OnDestroy {
       mastery: 0.4
     },
     {
-      name: 'API\'s',
+      name: 'APIs',
       mastery: 0.9
     },
     {
