@@ -1,0 +1,24 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Roman Kisil Portfolio",
+  "main": "ci/base.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd src/site && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/nodeful/portfolio.git"
+  },
+  "author": "Roman Kisil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/nodeful/portfolio/issues"
+  },
+  "ciPaths": {
+    "api": "./src/api",
+    "site": "./src/site"
+  },
+  "homepage": "https://gitlab.com/nodeful/portfolio#readme"
+}

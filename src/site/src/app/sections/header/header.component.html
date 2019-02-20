@@ -2,8 +2,8 @@
   <a 
   class="link" 
   *ngFor="let link of links" 
-  [href]="link.download ? link.download : ''"
-  target="_blank"
+  [href]="link.download ? link.download : '#'"
+  [target]="link.download ? '_blank' : '_self'"
   (click)="link.action ? link.action() : undefined" 
   >
       <img class="icon" [src]="'assets/' + link.icon">

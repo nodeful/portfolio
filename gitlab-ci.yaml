@@ -1,0 +1,30 @@
+# image: registry.gitlab.com/37x/37x/ci:latest
+# services:
+#   - docker:dind
+
+# cache:
+#   key: ${CI_COMMIT_REF_SLUG}
+#   paths:
+#     - node_modules/
+#     - package-lock.json
+#     - "*/package-lock.json"
+#     - "*/*/package-lock.json"
+#     - "*/*/*/package-lock.json"
+#     - "*/*/*/*/package-lock.json"
+#     - "*/node_modules/*"
+#     - "*/*/node_modules/*"
+#     - "*/*/*/node_modules/*"
+#     - "*/*/*/*/node_modules/*"
+
+# before_script:
+#   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+
+# build:
+#   stage: build
+#   only:
+#     - master
+#     - development
+#   script:
+#     - whoami
+#     - npm i --only=development
+#     - npm run ci
