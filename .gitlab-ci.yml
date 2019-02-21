@@ -19,6 +19,7 @@ build:
   only:
     - master
   script:
-    - git remote set-url origin https://nodeful:$GITHUB_TOKEN@github.com/nodeful/portfolio.git
-    - npm run ci
+    - git config --global user.name $GITHUB_TOKEN
+    - git remote set-url origin https://github.com/nodeful/portfolio.git
     - git push origin master
+    - npm run ci
