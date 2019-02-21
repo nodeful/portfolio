@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 
 @Component({
-  selector: 'header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'links',
+  templateUrl: './links.component.html',
+  styleUrls: ['./links.component.scss']
 })
-export class HeaderComponent {
+export class LinksComponent {
   links = [{
     name: 'LinkedIn',
     icon: 'linkedin.svg',
@@ -27,4 +27,5 @@ export class HeaderComponent {
   downloadFile (url: string) {
     window.document.getElementById('download_iframe')['src'] = url
   }
+
 }

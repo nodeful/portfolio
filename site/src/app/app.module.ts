@@ -13,7 +13,8 @@ import { PropagationAnimationComponent } from './sections/propagation-animation/
 import { CraftsComponent } from './sections/crafts/crafts.component'
 import { GaugeComponent } from './components/gauge/gauge.component'
 import { NgxGaugeModule } from 'ngx-gauge'
-import { SafePipe } from './pipes/safe.pipe'
+import { SafePipe } from './pipes/safe.pipe';
+import { LinksComponent } from './sections/links/links.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SafePipe } from './pipes/safe.pipe'
     PropagationAnimationComponent,
     CraftsComponent,
     GaugeComponent,
-    SafePipe
+    SafePipe,
+    LinksComponent
   ],
   imports: [
     BrowserModule,
