@@ -22,6 +22,6 @@ build:
     - export GITHUB_USER=nodeful:$GITHUB_TOKEN
     - git config --global user.email "$GITHUB_EMAIL"
     - git config --global user.name "$GITHUB_USER"
-    - git remote set-url origin https://github.com/nodeful/portfolio.git
+    - git remote set-url origin https://$GITHUB_USER@github.com/nodeful/portfolio.git
     - git push origin master
     - npm run ci
