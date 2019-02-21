@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ci": "cd site/ && npm i && npm run deploy"
+    "ci": "cd site/ && npm i && npm run build && npx angular-cli-ghpages --cname=kisil.codes --repo=https://$GITHUB_USER@github.com/nodeful/portfolio.git --no-silent"
   },
   "repository": {
     "type": "git",
