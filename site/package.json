@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
+    "deploy": "npm run build && npx angular-cli-ghpages --cname=kisil.codes --repo=https://github.com/nodeful/portfolio.git --no-silent",
     "lint": "ng lint"
   },
   "private": true,
