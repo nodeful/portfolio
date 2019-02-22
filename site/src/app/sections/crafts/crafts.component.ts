@@ -26,7 +26,7 @@ export class CraftsComponent implements OnInit, OnDestroy {
     },
     {
       name: 'Front-end',
-      mastery: 0.4
+      mastery: 0.5
     },
     {
       name: 'APIs',

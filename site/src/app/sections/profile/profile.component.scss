@@ -13,15 +13,19 @@ span {
   font-size: 2em;
 }
 
-.characteristic {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  .emoji {
-    font-size: 2rem;
-    margin-right: 10px;
+.character {
+  margin: 0 20px;
+  .characteristic {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .emoji {
+      font-size: 2rem;
+      margin-right: 10px;
+    }
   }
+  
 }
 
 .meta {

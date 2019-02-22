@@ -310,8 +310,13 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   iconPadding = 20
   animationId = null
   dragging = false
-  lastDragPosition: number = null
+  lastDrags: { x: number, time: number }[] = []
   pageWidth: number = 0
+  acceleration = 0
+  velocity = 0
+  readonly SCROLL_SPEED = -.3
+  readonly FRICTION = 0.1
+
   constructor (private utils: UtilitiesService) {
     this.rescale()
   }
@@ -354,15 +359,24 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       this.animationId = requestAnimationFrame(this.update.bind(this))
       return
     }
-    const SCROLL_SPEED = .3 // Pixels to move per frame. At 60fps, this would be 18px a sec.
     for (const page of this.pages) {
       let { x } = page.getBoundingClientRect()
-      x -= SCROLL_SPEED
+      x += this.SCROLL_SPEED + this.acceleration
       if (x < -this.pageWidth) {
         x = this.pageWidth
       }
+      if (x > this.pageWidth) {
+        x = -this.pageWidth
+      }
       page.style.transform = `translate(${x}px, 0px)`
     // Queue up another update() method call on the next frame
+    }
+    if (this.acceleration > 0) {
+      this.acceleration -= this.FRICTION
+      if (this.acceleration < 0) this.acceleration = 0
+    } else if (this.acceleration < 0) {
+      this.acceleration += this.FRICTION
+      if (this.acceleration > 0) this.acceleration = 0
     }
     this.animationId = requestAnimationFrame(this.update.bind(this))
   }
@@ -379,38 +393,49 @@ export class ToolkitComponent implements OnInit, OnDestroy {
 
   dragstart (event: TouchEvent) {
     this.dragging = true
-    const x = event.changedTouches[0].clientX
-    this.lastDragPosition = x
+    this.saveLastDragEvent(event)
   }
 
   drag (event: TouchEvent) {
     if (!this.dragging) return
-    const x = event.changedTouches[0].clientX
-    if (!this.lastDragPosition) {
-      this.lastDragPosition = x
-      return
+    if (!this.lastDrags.length) {
+      return this.saveLastDragEvent(event)
     }
 
-    const change = x - this.lastDragPosition
+    const x = this.getXFromDragEvent(event)
+    const lastDrag = this.lastDrags[this.lastDrags.length - 1]
+    const change = x - lastDrag.x
     for (const page of this.pages) {
       let { x: pageX } = page.getBoundingClientRect()
       pageX += change
-      if (pageX < -this.pageWidth) {
-        pageX = this.pageWidth
-      }
-      if (pageX >= this.pageWidth) {
-        pageX = -this.pageWidth
-      }
       page.style.transform = `translate(${pageX}px, 0px)`
     // Queue up another update() method call on the next frame
     }
-    this.lastDragPosition = x
+    const distance = this.getXFromDragEvent(event) - this.lastDrags[0].x
+    const time = new Date().getTime() - this.lastDrags[0].time
+    const pixelsPerTime = distance / time
+    const pixelsPerFrame = pixelsPerTime * 5
+    this.velocity = pixelsPerFrame
+    this.saveLastDragEvent(event)
   }
 
-  dragend () {
+  dragend (event) {
     this.dragging = false
+    this.acceleration = this.velocity
   }
 
+  getXFromDragEvent (event) {
+    return event.changedTouches[0].clientX
+  }
+
+  saveLastDragEvent (event) {
+    this.lastDrags.push({
+      x: this.getXFromDragEvent(event),
+      time: new Date().getTime()
+    })
+    const time = new Date().getTime()
+    this.lastDrags = this.lastDrags.filter(drag => time - drag.time < 1000)
+  }
   ngOnDestroy () {
     if (this.animationId) cancelAnimationFrame(this.animationId)
   }
