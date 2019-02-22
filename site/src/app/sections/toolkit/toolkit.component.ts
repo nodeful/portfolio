@@ -355,6 +355,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   }
 
   update () {
+    // Don't animate if dragging
     if (this.dragging) {
       this.animationId = requestAnimationFrame(this.update.bind(this))
       return
@@ -369,8 +370,9 @@ export class ToolkitComponent implements OnInit, OnDestroy {
         x = -this.pageWidth
       }
       page.style.transform = `translate(${x}px, 0px)`
-    // Queue up another update() method call on the next frame
     }
+
+    // Decelerate
     if (this.acceleration > 0) {
       this.acceleration -= this.FRICTION
       if (this.acceleration < 0) this.acceleration = 0
@@ -378,6 +380,8 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       this.acceleration += this.FRICTION
       if (this.acceleration > 0) this.acceleration = 0
     }
+
+    // Queue up another update() method call on the next frame
     this.animationId = requestAnimationFrame(this.update.bind(this))
   }
 
@@ -422,6 +426,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   dragend (event) {
     this.dragging = false
     this.acceleration = this.velocity
+    this.velocity = 0
   }
 
   getXFromDragEvent (event) {
