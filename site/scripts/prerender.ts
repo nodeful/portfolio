@@ -22,7 +22,7 @@ const URL = 'http://localhost:8080'
     console.log('Prerenderer ready, prerendering')
 
     const indexHtml = await fetch(`http://localhost:3000/render?url=${URL}`).then(res => res.text())
-
+    if (!indexHtml) throw new Error('Failed to fetch HTML')
     console.log('Prerendered, saving index.html')
 
     await writeFile('./dist/index.html', indexHtml)

@@ -1,4 +1,4 @@
-image: node:lts
+image: amio/node-chrome
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
